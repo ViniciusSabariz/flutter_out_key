@@ -1,0 +1,82 @@
+[
+  {
+    "document": "00000000000",
+    "name": "Usuario Como um Nome Legal",
+    "password": "12312312",
+    "role_permission": 0,
+    "latitude": "41234513523",
+    "longitude": "463463457345"
+  },
+  {
+    "document": "00000000001",
+    "name": "Usuario Como um Nome Legal",
+    "password": "12312312",
+    "role_permission": 0,
+    "latitude": "41234513523",
+    "longitude": "463463457345"
+  },
+  {
+    "document": "00000000002",
+    "name": "Usuario Sem nome",
+    "password": "12312312",
+    "role_permission": 0,
+    "latitude": "41234513523",
+    "longitude": "463463457345"
+  },
+  {
+    "document": "00000000003",
+    "name": "Usuario Como um Nome Legal",
+    "password": "12312312",
+    "role_permission": 0,
+    "latitude": "41234513523",
+    "longitude": "463463457345"
+  },
+  {
+    "document": "00000000004",
+    "name": "Usuario Como um Nome Legal",
+    "password": "12312312",
+    "role_permission": 0,
+    "latitude": "41234513523",
+    "longitude": "463463457345"
+  },
+  {
+    "document": "00000000005",
+    "name": "Usuario Como um Nome Legal",
+    "password": "12312312",
+    "role_permission": 1,
+    "latitude": "41234513523",
+    "longitude": "463463457345"
+  },
+  {
+    "document": "00000000006",
+    "name": "Usuario Como um Nome Legal",
+    "password": "12312312",
+    "role_permission": 1,
+    "latitude": "41234513523",
+    "longitude": "463463457345"
+  },
+  {
+    "document": "00000000007",
+    "name": "Usuario Como um Nome Legal",
+    "password": "12312312",
+    "role_permission": 1,
+    "latitude": "41234513523",
+    "longitude": "463463457345"
+  },
+  {
+    "document": "00000000008",
+    "name": "Usuario Como um Nome Legal",
+    "password": "12312312",
+    "role_permission": 1,
+    "latitude": "41234513523",
+    "longitude": "463463457345"
+  },
+  {
+    "document": "00000000009",
+    "name": "O Melhor Adm",
+    "password": "12312312",
+    "role_permission": 1,
+    "latitude": "41234513523",
+    "longitude": "463463457345"
+  }
+]
