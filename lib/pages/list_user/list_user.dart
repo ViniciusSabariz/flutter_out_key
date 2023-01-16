@@ -1,28 +1,38 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_outkey/components/item_list/item_list.dart';
+import 'package:flutter_outkey/components/buttons/primary/primary_button.dart';
+import 'package:flutter_outkey/components/list/list_show.dart';
+import 'package:flutter_outkey/pages/update/update.dart';
 import 'package:flutter_outkey/provider/user_provider.dart';
-import 'package:flutter_outkey/types/user.dart';
 import 'package:provider/provider.dart';
 
 const teste = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
 
-class ListUser extends StatelessWidget {
+class ListUser extends StatefulWidget {
   const ListUser({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    var user = context.select((UserProvider user) => user).user;
+  State<ListUser> createState() => _ListUserState();
+}
 
-    log(user.name.toString());
-    log(context.select((UserProvider user) => user).user.name.toString());
+class _ListUserState extends State<ListUser> {
+  var user;
+
+  editUser() async {
+    await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Update()));
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    user = context.select((UserProvider user) => user).user;
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Login'),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           child: Column(
             children: [
               Column(
@@ -32,11 +42,18 @@ class ListUser extends StatelessWidget {
                     fit: BoxFit.fill,
                     scale: 4,
                   ),
-                  Text(user.name ?? 'erro'),
-                  const Text('CPF Vermelho'),
-                  const Text('Lat: 12456334563'),
-                  const Text('Lon: 89653456342'),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text("Nome: ${user.name ?? 'erro'}"),
+                  Text("CPF: ${user.document ?? 'erro'}"),
+                  Text("Idade: ${user.age ?? 'erro'}"),
+                  Text("Latitude: ${user.latitude ?? 'erro'}"),
+                  Text("Longitude: ${user.longitude ?? 'erro'}"),
                 ],
+              ),
+              const SizedBox(
+                height: 20,
               ),
               Row(
                 children: const [
@@ -46,21 +63,18 @@ class ListUser extends StatelessWidget {
                   ),
                 ],
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: teste.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final item = teste[index];
-                    final user = User(
-                        name: 'Joao+$item',
-                        document: 'CPF-$item',
-                        latitude: '',
-                        longitude: '');
-
-                    return ItemList(user: user);
-                  },
-                ),
+              const SizedBox(
+                height: 20,
               ),
+              Expanded(
+                  child: ListShow(
+                rolePermission: user.rolePermission ?? 0,
+              )),
+              user.rolePermission == 1
+                  ? PrimaryButton(text: 'Alterar Dados', onPress: editUser)
+                  : const SizedBox(
+                      height: 0,
+                    ),
             ],
           ),
         ));

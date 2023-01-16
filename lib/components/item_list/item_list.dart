@@ -32,7 +32,7 @@ class ItemList extends StatelessWidget {
             Text('Nome: ${user.name}'),
             Text('CPF: ${user.document}'),
             Text('Latitude: ${user.latitude}'),
-            Text('Longitude: ${user.document}'),
+            Text('Longitude: ${user.longitude}'),
           ],
         )
       ],

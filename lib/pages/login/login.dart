@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_outkey/components/buttons/primary/primary_button.dart';
 import 'package:flutter_outkey/components/text_input/text_input.dart';
@@ -22,7 +21,6 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     documentController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -32,12 +30,22 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     makeLogin() async {
       try {
+        await _checkPermission();
+        final position = await _currentLocation();
         final login = await Auth()
             .login(documentController.text, passwordController.text);
 
         if (!mounted) return;
 
-        context.read<UserProvider>().updateUser(login);
+        context.read<UserProvider>().updateUser(User(
+            name: login.name,
+            document: login.document,
+            latitude: position.latitude.toString(),
+            longitude: position.longitude.toString(),
+            password: login.password,
+            age: login.age,
+            id: login.id,
+            rolePermission: login.rolePermission));
 
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => const ListUser()));
@@ -57,17 +65,18 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         title: const Text('Login'),
       ),
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 60.0),
-              child: Center(
-                child: SizedBox(
-                    width: 200,
-                    height: 150,
-                    child: Image.asset('asset/images/flutter-logo.png')),
-              ),
+            Center(
+              child: SizedBox(
+                  width: 200,
+                  height: 150,
+                  child: Image.asset('avatar-icon.jpg')),
             ),
             TextInput(
               label: 'CPF',
@@ -82,10 +91,36 @@ class _LoginState extends State<Login> {
               keyboardType: TextInputType.number,
               controller: passwordController,
             ),
-            PrimaryButton(text: 'Clica aqui', onPress: makeLogin),
+            const SizedBox(
+              height: 50,
+            ),
+            PrimaryButton(text: 'Login', onPress: makeLogin),
           ],
         ),
       ),
     );
   }
+}
+
+Future<bool> _checkPermission() async {
+  LocationPermission permission;
+
+  permission = await Geolocator.checkPermission();
+
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      return Future.error('Necessário habilitar permissão de geolacalização!');
+    }
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    return Future.error(
+        'Permissão de localização negada, é necessário habilitar a permissão.');
+  }
+  return true;
+}
+
+Future<Position> _currentLocation() async {
+  return await Geolocator.getCurrentPosition();
 }

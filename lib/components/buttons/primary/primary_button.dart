@@ -20,27 +20,14 @@ class PrimaryButton extends StatelessWidget {
               color: Colors.lightBlueAccent,
               borderRadius: BorderRadius.circular(15)),
           child: Center(
-            child: Text(text),
+            child: Text(
+              text,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
         ));
   }
 }
-
-            // FloatingActionButton(
-            //   // When the user presses the button, show an alert dialog containing
-            //   // the text that the user has entered into the text field.
-            //   onPressed: () {
-            //     showDialog(
-            //       context: context,
-            //       builder: (context) {
-            //         return AlertDialog(
-            //           // Retrieve the text that the user has entered by using the
-            //           // TextEditingController.
-            //           content: Text(documentController.text),
-            //         );
-            //       },
-            //     );
-            //   },
-            //   tooltip: 'Show me the value!',
-            //   child: const Icon(Icons.text_fields),
-            // ),

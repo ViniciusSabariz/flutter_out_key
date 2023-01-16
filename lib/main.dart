@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(Provider(
-      create: (_) => UserProvider(user: User()), child: const MyApp()));
+      create: (_) => UserProvider(user: const User()), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

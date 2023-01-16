@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_outkey/types/user.dart';
@@ -19,6 +19,8 @@ class UserService {
           latitude: element['latitude'],
           longitude: element['longitude'],
           password: element['password'],
+          age: element['age'],
+          id: element['id'],
           rolePermission: element['role_permission']));
     }
 
@@ -41,5 +43,21 @@ class UserService {
     if (user.isEmpty) throw 'Usuário não encontrado';
 
     return user[0];
+  }
+
+  Future<User> updateUser(User user) async {
+    List<User> users = await listUsers(-1);
+
+    final indexUser = users.indexWhere(((element) => element.id == user.id));
+
+    final routeFile = basename('constants/users/users.json');
+    final File file = File(routeFile);
+
+    users[indexUser] = user;
+
+    // TODO - Resolver problema de escrita de arquivo
+    // file.writeAsStringSync(json.encode(users));
+
+    return user;
   }
 }
